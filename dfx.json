@@ -1,0 +1,38 @@
+{
+  "canisters": {
+    "internet_identity": {
+      "candid": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity.did",
+      "frontend": {},
+      "remote": {
+        "id": {
+          "ic": "rdmx6-jaaaa-aaaaa-aaadq-cai"
+        }
+      },
+      "type": "custom",
+      "wasm": "https://github.com/dfinity/internet-identity/releases/latest/download/internet_identity_dev.wasm.gz"
+    },
+    "kintsugi_backend": {
+      "candid": "src/kintsugi_backend/kintsugi_backend.did",
+      "package": "kintsugi_backend",
+      "type": "rust"
+    },
+    "kintsugi_frontend": {
+      "dependencies": [
+        "kintsugi_backend"
+      ],
+      "source": [
+        "src/kintsugi_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "kintsugi_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
