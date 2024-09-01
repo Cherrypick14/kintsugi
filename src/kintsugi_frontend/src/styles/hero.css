@@ -1,0 +1,16 @@
+.hero {
+    background-color: #8e44ad; /* Purple background color */
+    background-image: 
+      linear-gradient(rgba(100, 50, 120, 0.6), rgba(50, 20, 60, 0.6)), /* Purple and black mix */
+      url('/wegotthis.jpg'); 
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 0;
+  }
+  

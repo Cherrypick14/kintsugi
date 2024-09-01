@@ -1,0 +1,81 @@
+/* Navigation styles */
+#mainNav {
+  background-color: #f8f9fa;
+  padding: 0 1rem; /* Adjust padding to ensure space inside the header */
+  height: 10vh; /* Fixed height for the header */
+  display: flex;
+  align-items: center; /* Vertically center the contents */
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Ensure the container spans full width */
+}
+
+.nav-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; /* Remove default margin */
+  display: flex; /* Align menu items horizontally */
+  align-items: center; /* Center items vertically */
+}
+
+.nav-menu li {
+  margin: 0 10px; /* Adjust margin between items */
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: #333;
+  font-size: 0.9rem; /* Reduce font size if needed */
+}
+
+.nav-menu a.active {
+  font-weight: bold;
+  color: #6f42c1; /* Active link color */
+}
+
+/* Ensure these styles are included in your header.css */
+
+.logo {
+  display: flex;
+  align-items: center; /* Vertically align the logo with text */
+  text-decoration: none; /* Remove underline from the link */
+}
+
+.logo-image-container {
+  display: flex;
+  align-items: center; /* Center the image vertically */
+  justify-content: center; /* Center the image horizontally */
+  width: 80px; /* Reduced width for the container */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.logo img {
+  max-width: 100%; /* Ensure the image scales down within the container */
+  height: auto; /* Maintain aspect ratio */
+  display: block; /* Remove extra space below the image */
+}
+
+/* Add media queries for responsiveness */
+@media (max-width: 768px) {
+  .logo-image-container {
+    width: 60px; /* Further reduce width for smaller screens */
+  }
+
+  .nav-menu a {
+    font-size: 0.8rem; /* Reduce font size for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-image-container {
+    width: 50px; /* Further adjust width for very small screens */
+  }
+
+  .nav-menu a {
+    font-size: 0.7rem; /* Further reduce font size for very small screens */
+  }
+}

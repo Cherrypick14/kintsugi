@@ -1,0 +1,19 @@
+/* ButtonLink.css */
+.button-link {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff; /* Primary button color */
+    color: #fff; /* White text */
+    transition: background-color 0.3s ease;
+  }
+  
+  .button-link:hover {
+    background-color: #0056b3; /* Darker color on hover */
+  }
+  

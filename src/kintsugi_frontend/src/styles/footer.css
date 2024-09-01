@@ -1,0 +1,20 @@
+/* footer.css */
+
+footer {
+    background-color: var(--mardi-gras);
+    color: var(--white);
+    text-align: center;
+    padding: 1rem 0;
+  }
+  
+  footer .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .container > p {
+     font-size: 15px;
+  }
+  

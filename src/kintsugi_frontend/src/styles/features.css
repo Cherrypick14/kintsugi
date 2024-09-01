@@ -1,0 +1,26 @@
+/* Existing styles */
+
+.feature-card {
+    /* Your existing styles for feature cards */
+    transition: box-shadow 0.3s ease-in-out;
+  }
+  
+  .card-shadow {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-shadow:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .feature-icon {
+    color: purple; /* Or use a specific color code, e.g., #8A2BE2 */
+    font-size: 2rem; /* Adjust size as needed */
+    margin-bottom: 1rem;
+  }
+  
+  /* You may want to add some padding to the feature cards if they don't have it already */
+  .feature-card {
+    padding: 1.5rem;
+    border-radius: 8px; /* Optional: if you want rounded corners */
+  }

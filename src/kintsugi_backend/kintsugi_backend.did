@@ -1,3 +1,19 @@
+type Result = variant { Ok : null; Err : text };
+
+type Report = record {
+  id : nat;
+  incident_type : text;
+  description : text;
+  date : text;
+  location : text;
+  status : opt text; 
+};
+
 service : {
-    "greet": (text) -> (text) query;
-}
+  create_report : (text, text, text, text) -> (nat);
+  get_report_handler : (nat) -> (opt Report);
+  fetch_reports_handler : () -> (vec Report);
+  update_report : (nat, text, text, text, text) -> (Result);
+  delete_report : (nat) -> (Result);
+  update_status : (nat, text) -> (Result);
+};
