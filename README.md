@@ -2,6 +2,13 @@
 
 Welcome to your new kintsugi project and to the internet computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
 
+# Live Project
+You can view the live version of the kintsugi project on the Internet Computer mainnet at the following links:
+
+- Frontend Canister: https://hxclu-4qaaa-aaaal-ajxkq-cai.icp0.io/
+
+- Backend Canister: Accessible through API calls or within the frontend.
+
 To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
 
 To learn more before you start working with kintsugi, see the following documentation available online:

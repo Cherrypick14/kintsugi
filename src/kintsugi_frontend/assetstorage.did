@@ -1,0 +1,13 @@
+service : {
+  // Store an asset (e.g., an HTML file, image, etc.)
+  store : (blob) -> ();
+
+  // Retrieve an asset by its identifier
+  retrieve : (blob) -> (blob);
+
+  // Delete an asset by its identifier
+  delete : (blob) -> ();
+
+  // List all stored assets
+  list : () -> (vec blob);
+}

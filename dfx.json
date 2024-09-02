@@ -23,6 +23,7 @@
       "source": [
         "src/kintsugi_frontend/dist"
       ],
+      "candid": "src/kintsugi_frontend/assetstorage.did", 
       "type": "assets",
       "workspace": "kintsugi_frontend"
     }
@@ -40,7 +41,7 @@
       "providers": [
         {
           "type": "https",
-          "url": "https://mainnet.dfinity.network"
+          "url": "https://mainnet.ic0.app"
         }
       ]
     }
