@@ -9,6 +9,26 @@ You can view the live version of the kintsugi project on the Internet Computer m
 
 - Backend Canister: Accessible through API calls or within the frontend.
 
+## Screenshots
+
+### 1. Home Page
+![Home Page](screenshots/home.png)
+
+### 2. Supportive Chatbot Interaction
+![Supportive Chatbot Interaction](screenshots/supportive_chatbot_interaction.png)
+
+### 3. Form for Filing Reports
+![Form for Filing Reports](screenshots/form.png)
+
+### 4. Statistics for Data Visualization
+![Statistics for Data Visualization](screenshots/data-visualization-for-the-reports.png)
+
+### 5. Internet Identity for Admin Access to Filed Reports
+![Internet Identity](screenshots/access-to-report-by-iidentity.png)
+
+### 6. Admin Access to Reports
+![Admin Access to Reports](screenshots/admindashboard.png)
+
 To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
 
 To learn more before you start working with kintsugi, see the following documentation available online:
