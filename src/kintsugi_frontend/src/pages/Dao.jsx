@@ -26,7 +26,7 @@ const DAODashboard = () => {
       setLoading(true);
       setError(null);
       try {
-        const fetchedReports = await kintsugi_backend.fetch_dao_reports();
+        const fetchedReports = await kintsugi_backend.fetch_reports();
         setReports(fetchedReports);
       } catch (error) {
         console.error('Error fetching DAO reports:', error);
@@ -45,7 +45,7 @@ const DAODashboard = () => {
         setLoading(true);
         setError(null);
         try {
-          const detailedReport = await kintsugi_backend.get_report_details(id);
+          const detailedReport = await kintsugi_backend.get_report(id);
           setSelectedReport(detailedReport);
         } catch (error) {
           console.error('Error fetching report details:', error);
@@ -62,7 +62,7 @@ const DAODashboard = () => {
   const handleAddComment = async (reportId) => {
     setError(null);
     try {
-      const success = await kintsugi_backend.add_dao_comment(reportId, comment);
+      const success = await kintsugi_backend.add_comment(reportId, comment);
       if (success) {
         setReports(reports.map(report =>
           report.id === reportId ? { ...report, comment } : report
@@ -79,7 +79,7 @@ const DAODashboard = () => {
   const handleMarkAsResolved = async (reportId) => {
     setError(null);
     try {
-      const success = await kintsugi_backend.mark_as_resolved(reportId);
+      const success = await kintsugi_backend.update_status(reportId);
       if (success) {
         const deletionSuccess = await kintsugi_backend.delete_report(reportId);
         if (deletionSuccess) {
@@ -99,7 +99,7 @@ const DAODashboard = () => {
   const handleEscalateFurther = async (reportId) => {
     setError(null);
     try {
-      const success = await kintsugi_backend.escalate_further(reportId);
+      const success = await kintsugi_backend.escalate_to_dao(reportId);
       if (success) {
         navigate(`/escalated/${reportId}`);
       }

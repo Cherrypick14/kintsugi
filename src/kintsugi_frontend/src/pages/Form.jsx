@@ -28,9 +28,10 @@ const Form = () => {
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
-        // Logic for uploading evidence files (if any)
-        const evidence = evidenceFiles.length ? evidenceFiles : null;
-        
+   // Convert evidenceFiles FileList to an array
+   const evidence = evidenceFiles.length ? Array.from(evidenceFiles).map(file => file.name) : null;
+
+      
         await kintsugi_backend.create_report(
           values.incident_type,
           values.description,
@@ -46,6 +47,9 @@ const Form = () => {
         // Reset form and evidence after successful submission
         resetForm();
         setEvidenceFiles([]);
+
+        // Clear file input manually
+        document.getElementById('evidence').value = '';
 
         setTimeout(() => {
           setMessage('');
@@ -65,7 +69,7 @@ const Form = () => {
   });
 
   const handleFileChange = (event) => {
-    setEvidenceFiles(event.target.files);
+    setEvidenceFiles(event.target.files); // FileList is fine here, but handle it correctly in onSubmit
   };
 
   return (
@@ -164,10 +168,10 @@ const Form = () => {
                 multiple
                 onChange={handleFileChange}
               />
-           <small className="file-format-info">
-            Accepted file formats: .jpg, .jpeg, .png, .pdf, .doc, .docx, .mp4, .mp3.
-             Please upload files that support your report.
-          </small>
+              <small className="file-format-info">
+                Accepted file formats: .jpg, .jpeg, .png, .pdf, .doc, .docx, .mp4, .mp3.
+                Please upload files that support your report.
+              </small>
             </div>
 
             <button type="submit" className="submit-button">Send</button>

@@ -6,14 +6,23 @@ type Report = record {
   description : text;
   date : text;
   location : text;
-  status : opt text; 
+  status : opt text;
+  comments : vec text; // This remains as a vector of text
+  evidence : opt text;
+  flagged : bool;
+  escalated_to_dao : bool;
+  priority : text; // Changed priority to a text field for string-based values like "High", "Medium", "Low"
 };
 
 service : {
-  create_report : (text, text, text, text) -> (nat);
-  get_report_handler : (nat) -> (opt Report);
-  fetch_reports_handler : () -> (vec Report);
-  update_report : (nat, text, text, text, text) -> (Result);
-  delete_report : (nat) -> (Result);
-  update_status : (nat, text) -> (Result);
+  create_report : (text, text, text, text, text, opt text) -> (nat); // Added priority (as text) to report creation
+  get_report_handler : (nat) -> (opt Report);           
+  fetch_reports_handler : () -> (vec Report);           
+  update_report : (nat, text, text, text, text, opt text, vec text, opt text, text) -> (Result); // Added priority to the update_report function
+  delete_report : (nat) -> (Result);                    
+  update_status : (nat, text) -> (Result);              
+  add_comment : (nat, vec text) -> (Result); // Changed comment parameter to vec text
+  update_evidence_handler : (nat, text) -> (Result);    
+  flag_report : (nat) -> (Result);              
+  escalate_to_dao : (nat) -> (Result);          
 };

@@ -9,5 +9,11 @@ pub struct Report {
     pub description: String,
     pub date: String,
     pub location: String,
+    pub priority: String,           // Add priority field here
     pub status: Option<String>,
+    pub comments: Vec<String>,       
+    pub evidence: Option<Vec<String>>,
+    pub flagged: bool,              
+    pub escalated_to_dao: bool,     
 }
+

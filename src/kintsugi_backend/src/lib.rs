@@ -18,6 +18,11 @@ fn init() {
         date: "2024-08-14".to_string(),
         location: "Nairobi, Kenya".to_string(),
         status: None,
+        comments: Vec::new(),
+        evidence: None,
+        flagged: false,            
+        escalated_to_dao: false, 
+        priority: "medium".to_string(),    
     };
 
     add_report(initial_report);
