@@ -1,78 +1,156 @@
 /* AdminDashboard.css */
 
 .container {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  h1 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
-    margin-top: 5rem;
-    color: var(--mardi-gras);
-  }
-  
-  h2 {
-    margin-top: 20px;
-    color: #555;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 30px;
-  }
-  
-  th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  th {
-    background-color: #f4f4f4;
-    color: #333;
-  }
-  
-  tr:hover {
-    background-color: #f9f9f9;
-  }
-  
-  button {
-    margin: 0 5px;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    background-color: #007bff;
-    color: #fff;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  button:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-  
-  td {
-    white-space: nowrap;
-  }
-  
-  .status {
-    font-weight: bold;
-  }
-  
-  .status.ongoing {
-    color: #ff9900;
-  }
-  
-  .status.finished {
-    color: #28a745;
-  }
-  
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  color: var(--mardi-gras); /* Using a variable color for consistency */
+  margin: 5rem 0 20px 0;
+}
+
+h2 {
+  margin-top: 20px;
+  color: #555;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+td {
+  white-space: nowrap;
+}
+
+.status {
+  font-weight: bold;
+}
+
+.status.ongoing {
+  color: #ff9900;
+}
+
+.status.finished {
+  color: #28a745;
+}
+
+/* New styles for comment input and flagged status */
+.comment-input {
+  margin-top: 10px;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: calc(100% - 30px); /* Full width minus margin and padding */
+  box-sizing: border-box;
+}
+
+.comment-button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #28a745;
+  color: #fff;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.comment-button:hover {
+  background-color: #218838;
+}
+
+.flagged {
+  color: #dc3545; /* Red color for flagged status */
+  font-weight: bold;
+}
+
+.unflagged {
+  color: #007bff; /* Default color for unflagged status */
+  font-weight: normal;
+}
+
+/* New styles for evidence preview */
+.evidence-preview {
+  margin-top: 10px;
+}
+
+.evidence-preview img, .evidence-preview video {
+  max-width: 100%;
+  height: auto;
+}
+
+.evidence-preview a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.evidence-preview a:hover {
+  text-decoration: underline;
+}
+
+/* Styles for pagination */
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  margin: 0 2px;
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #007bff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.pagination button.active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.pagination button:hover {
+  background-color: #f1f1f1;
+}

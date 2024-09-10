@@ -1,0 +1,85 @@
+/* form.css */
+
+form {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+  }
+  
+  form h2 {
+    text-align: center;
+    color: var(--mardi-gras);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--mardi-gras);
+  }
+  
+  form input[type="text"],
+  form input[type="email"],
+  form textarea,
+  form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+  }
+  
+  form textarea {
+    height: 150px;
+  }
+  
+  form input[type="submit"] {
+    background-color: var(--button-blue);
+    color: var(--white);
+    padding: 12px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  
+  form input[type="submit"]:hover {
+    background-color: #3A7BC8;
+  }
+  
+  .priority-field {
+    margin-bottom: 1rem;
+  }
+  
+  .priority-field label {
+    color: var(--mardi-gras);
+  }
+  
+  form select {
+    color: var(--mardi-gras);
+  }
+  
+  .notification {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  
+  .success {
+    background-color: #d4edda;
+    color: #155724;
+  }
+  
+  .error {
+    background-color: #f8d7da;
+    color: #721c24;
+  }
+  

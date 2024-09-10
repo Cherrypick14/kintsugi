@@ -7,7 +7,7 @@
   align-items: center; /* Vertically center the contents */
 }
 
-.nav-container {
+.nav-container{
   display: flex;
   justify-content: space-between;
   align-items: center;

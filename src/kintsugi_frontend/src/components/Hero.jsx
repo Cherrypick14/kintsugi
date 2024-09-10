@@ -8,7 +8,7 @@ import '../styles/hero.css';
 const HeroSection = () => {
   return (
     <header className="hero" id="home">
-      <div className="container">
+      <div className="container1">
         <h1>Kintsugi Hub: Empowering Voices, Preserving Dignity</h1>
         <p>We believe you. Your safety and well-being are our top priority. Report with confidence, knowing you're protected every step of the way.</p>
       

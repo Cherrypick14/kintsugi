@@ -3,8 +3,10 @@ import Home from './pages/Home';
 import Statistics from './pages/Statistics';
 import Form from './pages/Form';
 import Login from './pages/Login';
-// import ProtectedRoute from './components/Protectedroute';
 import AdminDashboard from './pages/AdminDashboard';
+import Dao from './pages/Dao';
+import DAODashboard from './pages/Dao';
+
 
 function App() {
 
@@ -18,6 +20,7 @@ function App() {
         <Route path='/form' element={<Form />}/>
         <Route path='/login' element={<Login />}/>
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/dao/:id" element={<DAODashboard />} /> 
       </Routes>
     </Router>
     

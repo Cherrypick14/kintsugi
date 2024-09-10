@@ -1,6 +1,6 @@
 /* footer.css */
 
-footer {
+.home-footer{
     background-color: var(--mardi-gras);
     color: var(--white);
     text-align: center;

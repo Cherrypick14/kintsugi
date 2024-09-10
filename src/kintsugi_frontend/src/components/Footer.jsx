@@ -4,7 +4,7 @@ import '../styles/footer.css'
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className='home-footer'>
       <div className="container">
         <p>&copy; 2024 Kintsugi GBV Reporting Platform. You are not alone. We are here for you.</p>
       </div>

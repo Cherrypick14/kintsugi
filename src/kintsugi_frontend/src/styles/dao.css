@@ -1,0 +1,145 @@
+/* General Container Styles */
+.container2 {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+  }
+  
+  /* Header and Footer */
+  header,
+  footer {
+    background-color: #343a40;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-align: center;
+  }
+  
+  /* Error Message */
+  .error-message {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  /* Loading Indicator */
+  .loading-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px;
+  }
+  
+  .loading-indicator p {
+    font-size: 18px;
+    color: #007bff;
+  }
+  
+  /* Report Details */
+  .report-details {
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 20px;
+    background-color: #ffffff;
+    margin-bottom: 20px;
+  }
+  
+  .report-details h2 {
+    margin-top: 0;
+  }
+  
+  .report-details .evidence img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .report-details .comment-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .report-details .comment-button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .report-details .comment-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Report List */
+  .report-list {
+    margin-bottom: 20px;
+  }
+  
+  .report-list table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .report-list th,
+  .report-list td {
+    border: 1px solid #dee2e6;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .report-list th {
+    background-color: #f1f1f1;
+  }
+  
+  .report-list .status {
+    font-weight: bold;
+  }
+  
+  .report-list .status.resolved {
+    color: #28a745;
+  }
+  
+  .report-list .status.pending {
+    color: #ffc107;
+  }
+  
+  /* Pagination */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .pagination button.active {
+    background-color: #0056b3;
+  }
+  
+  .pagination button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Button Disabled State */
+  button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+  }
+  
