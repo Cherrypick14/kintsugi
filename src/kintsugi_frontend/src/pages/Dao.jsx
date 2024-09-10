@@ -81,17 +81,21 @@ const DAODashboard = () => {
     try {
       const success = await kintsugi_backend.mark_as_resolved(reportId);
       if (success) {
-        setReports(reports.map(report =>
-          report.id === reportId ? { ...report, status: 'resolved' } : report
-        ));
-        alert('Report marked as resolved.');
+        const deletionSuccess = await kintsugi_backend.delete_report(reportId);
+        if (deletionSuccess) {
+          setReports(reports.filter(report => report.id !== reportId));
+          setSelectedReport(null); // Clear selected report if necessary
+          alert('Report marked as resolved and deleted.');
+        } else {
+          alert('Report marked as resolved, but failed to delete.');
+        }
       }
     } catch (error) {
-      console.error('Error marking report as resolved:', error);
-      setError('Failed to mark report as resolved. Please try again later.');
+      console.error('Error handling report resolution:', error);
+      setError('Failed to mark report as resolved and delete. Please try again later.');
     }
   };
-
+  
   const handleEscalateFurther = async (reportId) => {
     setError(null);
     try {
