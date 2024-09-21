@@ -12,7 +12,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const FeaturesSection = () => {
-  const iconStyle = { color: 'purple' };
+  const iconStyle = { color: 'white' };
 
   return (
     <section className="section" id="features">
