@@ -1,0 +1,88 @@
+/* Section styles */
+#howitworks {
+    background-color: #2E1A47; /* Darker purple for base */
+    background-image: linear-gradient(135deg, #BEC7D5ff, #663530ff, #10051Eff, #20063Aff, #0C001Bff);  
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 0;
+    color: white;
+  }
+  
+  /* Container styles */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+  
+  .section-title {
+    color: #FFF
+  }
+  /* Grid layout */
+  .howitworks-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  /* Card styling */
+  .howitworks-card {
+    background-color: #361e54; /* Dark purple background for cards */
+    padding: 2rem;
+    border-radius: 12px;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 500px; /* Set a consistent width for cards */
+  }
+  
+  /* Hover effects for card */
+  .howitworks-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+  }
+
+  /* .howitworks-card > p {
+
+    margin-top: .3rem;
+  } */
+  
+  /* Icon styles */
+  .howitworks-icon {
+    color: #FFF; /* Light purple color for icons */
+    font-size: 3rem; /* Increase icon size */
+    margin-bottom: 1rem;
+  }
+  
+  /* Title styling inside each card */
+  .howitworks-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #e6e6e6; /* Light gray text for card titles */
+  }
+  
+  /* Text inside the cards */
+  .howitworks-card p {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #ddd; /* Slightly lighter text color */
+  }
+  
+  /* Media Queries for Responsive Design */
+  @media (max-width: 768px) {
+    .howitworks-grid {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .howitworks-card {
+      width: 100%; /* Full-width cards on smaller screens */
+    }
+  }
+  
