@@ -1,16 +1,22 @@
 .hero {
-    background-color: #8e44ad; /* Purple background color */
-    background-image: 
-      linear-gradient(rgba(100, 50, 120, 0.6), rgba(50, 20, 60, 0.6)), /* Purple and black mix */
-      url('/wegotthis.jpg'); 
-    background-size: cover;
-    background-position: center;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 2rem 0;
-  }
-  
+  background-color: dark-purple-2; /* Base background color for fallback */
+  background-image: 
+  linear-gradient(135deg, #BEC7D5ff, #663530ff, #10051Eff, #20063Aff, #0C001Bff);  background-position: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 0;
+  color: white; /* Ensure text is visible */
+}
+h1 {
+  padding-top: 7rem;
+}
+p {
+  padding-top: 5rem;
+}
+.button-primary {
+   margin-top: 3.5rem;
+}
