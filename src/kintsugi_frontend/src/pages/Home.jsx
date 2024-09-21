@@ -1,6 +1,7 @@
 import React from 'react'
 import Footer from '../components/Footer'
 import HeroSection from '../components/Hero'
+import HowItWorks from '../components/Howitworks'
 import FeaturesSection from '../components/Featuresection'
 import StoriesSection from '../components/Storiessection'
 import Header from '../components/Header'
@@ -12,6 +13,7 @@ const Home = () => {
     <div>
       <Header />
       <HeroSection />
+      <HowItWorks />
       <FeaturesSection />
       <StoriesSection />
       <TrustSection />
