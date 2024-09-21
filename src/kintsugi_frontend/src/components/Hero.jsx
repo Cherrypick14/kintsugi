@@ -9,10 +9,9 @@ const HeroSection = () => {
   return (
     <header className="hero" id="home">
       <div className="container1">
-        <h1>Kintsugi Hub: Empowering Voices, Preserving Dignity</h1>
-        <p>We believe you. Your safety and well-being are our top priority. Report with confidence, knowing you're protected every step of the way.</p>
+        <h1>Kintsugi Hub: Empowering Voices,<br /> Preserving Dignity</h1>
+        <p>We believe you. Your safety and well-being are our top priority.<br></br> Report with confidence, knowing you're protected every step of the way.</p>
       
-         
         <Button  to="/form" className="button-primary">
         Safely Report an Incident
         </Button>
