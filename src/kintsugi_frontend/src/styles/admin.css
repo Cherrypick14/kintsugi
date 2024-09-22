@@ -1,19 +1,21 @@
 /* AdminDashboard.css */
 
-.container {
+.admin-container {
   padding: 20px;
   font-family: Arial, sans-serif;
+  background-image: linear-gradient(135deg, #BEC7D5ff, #663530ff, #10051Eff, #20063Aff, #0C001Bff);  
+
 }
 
-h1 {
+.admin-container  > h1 {
   text-align: center;
-  color: var(--mardi-gras); /* Using a variable color for consistency */
+  color: white; /* Using a variable color for consistency */
   margin: 5rem 0 20px 0;
 }
 
 h2 {
   margin-top: 20px;
-  color: #555;
+  color: white;
 }
 
 table {
@@ -29,8 +31,8 @@ th, td {
 }
 
 th {
-  background-color: #f4f4f4;
-  color: #333;
+  /* background-color: #f4f4f4; */
+  color: white;
 }
 
 tr:hover {
