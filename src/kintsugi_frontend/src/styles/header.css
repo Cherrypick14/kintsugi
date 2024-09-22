@@ -5,6 +5,8 @@
   height: 10vh; /* Fixed height for the header */
   display: flex;
   align-items: center; /* Vertically center the contents */
+  background-image: linear-gradient(135deg, #BEC7D5ff, #663530ff, #10051Eff, #20063Aff, #0C001Bff);  
+
 }
 
 .nav-container{
@@ -12,6 +14,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%; /* Ensure the container spans full width */
+  
 }
 
 .nav-menu ul {
@@ -28,13 +31,13 @@
 
 .nav-menu a {
   text-decoration: none;
-  color: #333;
+  color: purple;
   font-size: 0.9rem; /* Reduce font size if needed */
 }
 
 .nav-menu a.active {
   font-weight: bold;
-  color: #6f42c1; /* Active link color */
+  color: #FFF; /* Active link color */
 }
 
 /* Ensure these styles are included in your header.css */
