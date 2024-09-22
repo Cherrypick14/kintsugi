@@ -32,7 +32,7 @@
 .nav-menu a {
   text-decoration: none;
   color: purple;
-  font-size: 0.9rem; /* Reduce font size if needed */
+  font-size: 1rem; /* Reduce font size if needed */
 }
 
 .nav-menu a.active {
