@@ -1,6 +1,6 @@
 .statistics-container {
   padding: 20px;
-  background-color: #f9f9f9;
+  background-image: linear-gradient(135deg, #BEC7D5ff, #663530ff, #10051Eff, #20063Aff, #0C001Bff);  
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   max-width: 1200px;
@@ -11,7 +11,7 @@
 .statistics-container > h2 {
    margin-top: 5rem;
    margin-bottom : 3rem;
-   color: var(--mardi-gras);
+   color: white;
 }
 
 .statistics-grid {
@@ -23,7 +23,7 @@
 
 .stat-item {
   flex: 1 1 calc(25% - 20px); /* Adjust to make cards smaller */
-  background-color: #fff;
+  background-color: #361e54;
   padding: 15px; /* Reduce padding */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -33,20 +33,21 @@
 
 .stat-icon {
   font-size: 1.5em; /* Reduce icon size */
-  color: #861673;
+  color: white;
   margin-bottom: 10px;
 }
 
 .stat-item h3 {
   margin: 0;
   font-size: 1.5em; /* Reduce heading size */
-  color: #861673;
+  color: white;
 }
 
 .stat-item p {
   margin: 10px 0 0;
   font-size: 0.9em; /* Reduce paragraph text size */
-  color: #666;
+  color: white;
+  padding-top: 1rem;
 }
 
 .chart-container {
