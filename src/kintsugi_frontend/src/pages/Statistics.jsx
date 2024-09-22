@@ -58,7 +58,7 @@ const Statistics = () => {
           <Bar data={chartData} />
         </div>
         <div className="map-container">
-          <MapContainer center={mapCenter} zoom={13} scrollWheelZoom={false}>
+          <MapContainer center={mapCenter} zoom={23} scrollWheelZoom={false}>
             <TileLayer
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
               attribution='© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
