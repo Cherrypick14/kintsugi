@@ -12,22 +12,26 @@ You can view the live version of the kintsugi project on the Internet Computer m
 ## Screenshots
 
 ### 1. Home Page
-![Home Page](screenshots/home.png)
+![Home Page](screenshots/Home.png)
 
 ### 2. Supportive Chatbot Interaction
-![Supportive Chatbot Interaction](screenshots/supportive_chatbot_interaction.png)
+![Supportive Chatbot Interaction](screenshots/Chatbot.png)
+
+### 3. Brief description of how our platform works
+![Project Briefing](screenshots/Howitworks.png)
+
 
 ### 3. Form for Filing Reports
-![Form for Filing Reports](screenshots/form.png)
+![Form for Filing Reports](screenshots/fillform.png)
 
 ### 4. Statistics for Data Visualization
-![Statistics for Data Visualization](screenshots/data-visualization-for-the-reports.png)
+![Statistics for Data Visualization](screenshots/viewstatistics.png)
 
 ### 5. Internet Identity for Admin Access to Filed Reports
 ![Internet Identity](screenshots/access-to-report-by-iidentity.png)
 
 ### 6. Admin Access to Reports
-![Admin Access to Reports](screenshots/admindashboard.png)
+![Admin Access to Reports](screenshots/Viewadmindashboard.png)
 
 To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
 
