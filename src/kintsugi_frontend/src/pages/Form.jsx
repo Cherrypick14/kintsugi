@@ -167,7 +167,7 @@ const Form = () => {
                 accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.mp4,.mp3"
                 multiple
                 onChange={handleFileChange}
-              />
+             />
               <small className="file-format-info">
                 Accepted file formats: .jpg, .jpeg, .png, .pdf, .doc, .docx, .mp4, .mp3.
                 Please upload files that support your report.
