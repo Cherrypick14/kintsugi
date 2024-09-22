@@ -145,7 +145,7 @@ const AdminDashboard = () => {
   return (
     <>
       <Header />
-      <div className="container">
+      <div className="admin-container">
         <h1>Admin Dashboard</h1>
         <input
           type="text"
