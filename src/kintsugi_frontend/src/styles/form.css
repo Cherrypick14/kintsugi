@@ -1,7 +1,10 @@
 /* form.css */
 
-form {
-    background-color: var(--white);
+.report-section{
+  background-image: linear-gradient(135deg, #BEC7D5ff, #663530ff, #10051Eff, #20063Aff, #0C001Bff);  
+
+}
+form {  
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -75,11 +78,19 @@ form {
   
   .success {
     background-color: #d4edda;
-    color: #155724;
+    color: green;
   }
   
   .error {
     background-color: #f8d7da;
-    color: #721c24;
+    color:red;
+  }
+  .file-format-info{
+    color: white;
+
+  }
+  .submit-button {
+    background-color: #007bff;
+
   }
   
