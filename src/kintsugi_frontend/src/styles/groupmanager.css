@@ -1,0 +1,84 @@
+/* src/styles/groupmanager.css */
+
+.group-manager {
+    background-color: #f9f9f9; /* Light background for better contrast */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 600px; /* Increased width for more content */
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between; /* Aligns the input and buttons */
+    margin-bottom: 20px;
+}
+
+input, textarea {
+    flex: 1; /* Makes the input and textarea take up remaining space */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 10px; /* Spacing between input and buttons */
+}
+
+textarea {
+    min-height: 60px; /* Ensures a minimum height for the textarea */
+    resize: none; /* Prevents resizing of the textarea */
+}
+
+.button-group {
+    display: flex;
+}
+
+.create-button, .join-button, .submit-proposal, .vote-button {
+    background-color: #4CAF50; /* Green background for buttons */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition on hover */
+}
+
+.create-button:hover, .join-button:hover, .submit-proposal:hover, .vote-button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.feedback {
+    color: #f44336; /* Red color for feedback messages */
+    margin-top: 10px;
+}
+
+.proposal-section {
+    margin-top: 20px;
+}
+
+.proposals-list {
+    margin-top: 20px;
+}
+
+.proposal {
+    background-color: #ffffff; /* White background for proposals */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0; /* Margin between proposals */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.vote-buttons {
+    display: flex;
+    justify-content: space-between; /* Aligns vote buttons and votes display */
+    align-items: center; /* Centers items vertically */
+}
+
+.vote-button {
+    background-color: #2196F3; /* Blue background for vote buttons */
+    margin-right: 10px; /* Space between buttons */
+}
+
+.vote-button:hover {
+    background-color: #0b7dda; /* Darker blue on hover */
+}
