@@ -1,84 +1,86 @@
 /* src/styles/groupmanager.css */
 
 .group-manager {
-    background-color: #f9f9f9; /* Light background for better contrast */
-    border-radius: 8px; /* Rounded corners */
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 20px auto;
-    max-width: 600px; /* Increased width for more content */
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.input-group {
-    display: flex;
-    justify-content: space-between; /* Aligns the input and buttons */
+h2, h3, h4 {
+    color: #5b5b5b;
+}
+
+.input-group,
+.button-group {
     margin-bottom: 20px;
 }
 
-input, textarea {
-    flex: 1; /* Makes the input and textarea take up remaining space */
+input[type="text"],
+textarea {
+    width: 100%;
     padding: 10px;
+    margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-right: 10px; /* Spacing between input and buttons */
-}
-
-textarea {
-    min-height: 60px; /* Ensures a minimum height for the textarea */
-    resize: none; /* Prevents resizing of the textarea */
 }
 
 .button-group {
     display: flex;
+    gap: 10px;
 }
 
-.create-button, .join-button, .submit-proposal, .vote-button {
-    background-color: #4CAF50; /* Green background for buttons */
-    color: white;
+.create-button,
+.join-button,
+.submit-proposal,
+.vote-button {
     padding: 10px 15px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s; /* Smooth transition on hover */
+    background-color: #6c63ff; /* Purple color */
+    color: white;
 }
 
-.create-button:hover, .join-button:hover, .submit-proposal:hover, .vote-button:hover {
-    background-color: #45a049; /* Darker green on hover */
+.create-button:hover,
+.join-button:hover,
+.submit-proposal:hover,
+.vote-button:hover {
+    background-color: #5753d1;
 }
 
 .feedback {
-    color: #f44336; /* Red color for feedback messages */
+    color: #ff0000;
     margin-top: 10px;
 }
 
-.proposal-section {
+.groups-list {
     margin-top: 20px;
 }
 
+.group-card {
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.proposal-section,
 .proposals-list {
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .proposal {
-    background-color: #ffffff; /* White background for proposals */
-    border: 1px solid #ccc;
-    border-radius: 4px;
     padding: 10px;
-    margin: 10px 0; /* Margin between proposals */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .vote-buttons {
     display: flex;
-    justify-content: space-between; /* Aligns vote buttons and votes display */
-    align-items: center; /* Centers items vertically */
-}
-
-.vote-button {
-    background-color: #2196F3; /* Blue background for vote buttons */
-    margin-right: 10px; /* Space between buttons */
-}
-
-.vote-button:hover {
-    background-color: #0b7dda; /* Darker blue on hover */
+    gap: 10px;
+    align-items: center;
 }
