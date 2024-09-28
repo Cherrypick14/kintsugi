@@ -31,7 +31,8 @@
 
 .nav-menu a {
   text-decoration: none;
-  color: purple;
+  /* color: purple; */
+  color: #FF5722;
   font-size: 1rem; /* Reduce font size if needed */
 }
 
