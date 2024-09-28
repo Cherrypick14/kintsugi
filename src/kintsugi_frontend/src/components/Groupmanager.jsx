@@ -6,25 +6,22 @@ const GroupManager = ({ createGroup, joinGroup, submitProposal, proposals, voteO
     const [groupId, setGroupId] = useState('');
     const [newProposal, setNewProposal] = useState('');
     const [feedback, setFeedback] = useState('');
+    const [groups, setGroups] = useState([]); // Store the list of support groups
 
     const handleCreateGroup = () => {
         if (groupId.trim()) {
             createGroup(groupId);
             setGroupId('');
             setFeedback('Group created successfully!');
+            // Optionally, refresh the group list here
         } else {
             setFeedback('Please enter a valid Group ID.');
         }
     };
 
-    const handleJoinGroup = () => {
-        if (groupId.trim()) {
-            joinGroup(groupId);
-            setGroupId('');
-            setFeedback('Joined group successfully!');
-        } else {
-            setFeedback('Please enter a valid Group ID.');
-        }
+    const handleJoinGroup = (group) => {
+        joinGroup(group);
+        setFeedback(`Joined group: ${group}`);
     };
 
     const handleSubmitProposal = () => {
@@ -39,23 +36,36 @@ const GroupManager = ({ createGroup, joinGroup, submitProposal, proposals, voteO
 
     return (
         <div className="group-manager">
-            <h2>Manage Your Support Groups</h2>
-            <div className="input-group">
-                <input 
-                    type="text" 
-                    placeholder="Enter Group ID" 
-                    value={groupId}
-                    onChange={(e) => setGroupId(e.target.value)}
-                />
-                <div className="button-group">
-                    <button className="create-button" onClick={handleCreateGroup}>Create Group</button>
-                    <button className="join-button" onClick={handleJoinGroup}>Join Group</button>
-                </div>
+            <h2>Join a Support Group</h2>
+            <input 
+                type="text" 
+                placeholder="Enter Group ID" 
+                value={groupId}
+                onChange={(e) => setGroupId(e.target.value)}
+            />
+            <div className="button-group">
+                <button className="create-button" onClick={handleCreateGroup}>Create Group</button>
+                <button className="join-button" onClick={() => handleJoinGroup(groupId)}>Join Group</button>
             </div>
             {feedback && <p className="feedback">{feedback}</p>}
-            
+
+            <div className="groups-list">
+                <h3>Available Support Groups</h3>
+                {groups.length > 0 ? (
+                    groups.map((group, index) => (
+                        <div key={index} className="group-card">
+                            <h4>{group.name}</h4>
+                            <p>{group.description}</p>
+                            <button onClick={() => handleJoinGroup(group.id)}>Join</button>
+                        </div>
+                    ))
+                ) : (
+                    <p>No support groups available.</p>
+                )}
+            </div>
+
             <div className="proposal-section">
-                <h3>Voice Your Concerns</h3>
+                <h3>Community Governance</h3>
                 <textarea 
                     placeholder="Enter your proposal..." 
                     value={newProposal}
@@ -65,24 +75,22 @@ const GroupManager = ({ createGroup, joinGroup, submitProposal, proposals, voteO
             </div>
 
             <div className="proposals-list">
-                <h3>Shared Voices</h3>
-                
+                <h3>Current Proposals</h3>
                 {proposals && proposals.length > 0 ? (
-    proposals.map((proposal, index) => (
-        <div key={index} className="proposal">
-            <p>{proposal.text}</p>
-            <div className="vote-buttons">
-                <button className="vote-button" onClick={() => voteOnProposal(proposal.id, true)}>Upvote</button>
-                <button className="vote-button" onClick={() => voteOnProposal(proposal.id, false)}>Downvote</button>
-                <span>{proposal.votes} votes</span>
-            </div>
-        </div>
-    ))
-) : (
-    <p>No proposals available.</p>
-)}
-
-
+                 proposals.map((proposal, index) => (
+                    <div key={index} className="proposal">
+                        <p>{proposal.text}</p>
+                        <div className="vote-buttons">
+                            <button className="vote-button" onClick={() => voteOnProposal(proposal.id, true)}>Upvote</button>
+                            <button className="vote-button" onClick={() => voteOnProposal(proposal.id, false)}>Downvote</button>
+                            <span>{proposal.votes} votes</span>
+                        </div>
+                    </div>
+                ))
+                ):(
+                    <p>No proposals available.</p>
+                )}
+                
             </div>
         </div>
     );
