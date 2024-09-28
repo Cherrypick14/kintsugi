@@ -12,9 +12,14 @@ const HeroSection = () => {
         <h1>Kintsugi Hub: Empowering Voices,<br /> Preserving Dignity</h1>
         <p>We believe you. Your safety and well-being are our top priority.<br></br> Report with confidence, knowing you're protected every step of the way.</p>
       
-        <Button  to="/learn" className="button-primary">
-        Learn More About Your Rights
-        </Button>
+        <div className="button-container">
+            <Button to="/learn" className="button-primary">
+              Learn More About Your Rights
+            </Button>
+            <Button to="/donate" className="button-donate">
+              Donate
+          </Button>
+      </div>
         
       </div>
     </header>
