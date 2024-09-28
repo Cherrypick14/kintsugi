@@ -32,8 +32,8 @@ const HowItWorks = () => {
             <FontAwesomeIcon icon={faUserNurse} className="howitworks-icon" style={iconStyle} />
             <h3>Find Help</h3>
             <p>Access immediate assistance and support. We connect you with professional services, including counseling, legal aid, and emergency response, to help you take the next steps toward safety and recovery.</p>
-            <Button  to="/groupmanager" className="button-primary">
-             Support help
+            <Button  to="/" className="button-primary">
+             Get Assistance
             </Button>
           </div>
           
@@ -42,8 +42,8 @@ const HowItWorks = () => {
             <FontAwesomeIcon icon={faVenus} className="howitworks-icon" style={iconStyle} />
             <h3>Support Groups</h3>
             <p>Join our community of survivors and allies. We offer peer-led and expert-led support groups where you can share your experiences, find emotional support, and begin your healing journey in a safe, judgment-free environment.</p>
-            <Button  to="/donate" className="button-primary">
-             Donate
+            <Button  to="/groupmanager" className="button-primary">
+             Connect
             </Button>
           </div>
 
