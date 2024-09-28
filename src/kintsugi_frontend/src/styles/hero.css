@@ -20,3 +20,30 @@ p {
 .button-primary {
    margin-top: 3.5rem;
 }
+/*Styling the buttons on the hero section*/
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.button-primary, .button-donate {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+}
+
+.button-primary {
+  background-color: #4CAF50; /* Green background */
+  color: white;
+}
+
+.button-donate {
+  background-color: #FF5722; /* Orange background */
+  color: white;
+}
+
