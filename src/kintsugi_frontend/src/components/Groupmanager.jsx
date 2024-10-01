@@ -1,6 +1,8 @@
 // src/components/GroupManager.jsx
 import React, { useState } from 'react';
 import '../styles/groupmanager.css'; 
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const GroupManager = ({ createGroup, joinGroup, submitProposal, proposals, voteOnProposal }) => {
     const [groupId, setGroupId] = useState('');
@@ -35,7 +37,9 @@ const GroupManager = ({ createGroup, joinGroup, submitProposal, proposals, voteO
     };
 
     return (
-        <div className="group-manager">
+        <>
+        <Header />
+           <div className="group-manager">
             <h2>Join a Support Group</h2>
             <input 
                 type="text" 
@@ -93,6 +97,9 @@ const GroupManager = ({ createGroup, joinGroup, submitProposal, proposals, voteO
                 
             </div>
         </div>
+        <Footer />
+        </>
+     
     );
 };
 
