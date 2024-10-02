@@ -14,6 +14,23 @@ type Report = record {
   priority : text; // Changed priority to a text field for string-based values like "High", "Medium", "Low"
 };
 
+type Group = record {
+    id : nat;
+    name : text;
+    description : text; 
+    members : vec principal; // Changed members to a vector of principal types
+    proposals : vec nat; // List of proposal IDs associated with the group 
+};
+
+type Proposal = record {
+    id : nat;
+    description : text;
+    votes_for : nat;
+    votes_against : nat;
+    group_id : nat; // Reference to the associated group ID
+    proposer : principal; // Proposer as a principal type
+};
+
 service : {
   create_report : (text, text, text, text, text, opt text) -> (nat); // Added priority (as text) to report creation
   get_report_handler : (nat) -> (opt Report);           
@@ -24,5 +41,15 @@ service : {
   add_comment : (nat, vec text) -> (Result); // Changed comment parameter to vec text
   update_evidence_handler : (nat, text) -> (Result);    
   flag_report : (nat) -> (Result);              
-  escalate_to_dao : (nat) -> (Result);          
+  escalate_to_dao : (nat) -> (Result);   
+  add_group : (text, text) -> (nat); // Added parameters for group creation
+    fetch_groups : () -> (vec Group); // Method to fetch all groups
+    get_group : (nat) -> (opt Group); // Fetch a specific group by ID
+    update_group : (nat, text, text) -> (Result); // Update group details
+    delete_group : (nat) -> (Result); // Delete a specific group
+    add_proposal : (text, nat, principal) -> (nat); // Added parameters for proposal creation
+    fetch_proposals : () -> (vec Proposal); // Method to fetch all proposals
+    get_proposal : (nat) -> (opt Proposal); // Fetch a specific proposal by ID
+    update_proposal : (nat, text, nat, nat) -> (Result); // Update proposal details
+    delete_proposal : (nat) -> (Result); // Delete a specific proposal       
 };
