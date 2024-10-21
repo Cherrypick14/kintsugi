@@ -1,39 +1,67 @@
-// src/components/GroupManager.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { kintsugi_backend } from 'declarations/kintsugi_backend'; // Import backend
 import '../styles/groupmanager.css'; 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
-const GroupManager = ({ createGroup, joinGroup, submitProposal, proposals, voteOnProposal }) => {
+const GroupManager = () => {
     const [groupId, setGroupId] = useState('');
     const [newProposal, setNewProposal] = useState('');
     const [feedback, setFeedback] = useState('');
     const [groups, setGroups] = useState([]); // Store the list of support groups
+    const [proposals, setProposals] = useState([]); // Store the list of proposals
 
-    const handleCreateGroup = () => {
+    // Fetch available groups from the backend
+    useEffect(() => {
+        const fetchGroups = async () => {
+            const fetchedGroups = await kintsugi_backend.getGroups(); // Assuming getGroups is a backend function
+            setGroups(fetchedGroups);
+        };
+        fetchGroups();
+    }, []);
+
+    const handleCreateGroup = async () => {
         if (groupId.trim()) {
-            createGroup(groupId);
+            await kintsugi_backend.createGroup(groupId); // Create group using backend canister
             setGroupId('');
             setFeedback('Group created successfully!');
-            // Optionally, refresh the group list here
+            refreshGroups(); // Optionally refresh the group list here
         } else {
             setFeedback('Please enter a valid Group ID.');
         }
     };
 
-    const handleJoinGroup = (group) => {
-        joinGroup(group);
+    const handleJoinGroup = async (group) => {
+        await kintsugi_backend.joinGroup(group); // Join group using backend canister
         setFeedback(`Joined group: ${group}`);
     };
 
-    const handleSubmitProposal = () => {
+    const handleSubmitProposal = async () => {
         if (newProposal.trim()) {
-            submitProposal(newProposal);
+            await kintsugi_backend.submitProposal(newProposal); // Submit proposal via backend canister
             setNewProposal('');
             setFeedback('Proposal submitted successfully!');
+            refreshProposals(); // Refresh the proposals list
         } else {
             setFeedback('Please enter a valid proposal.');
         }
+    };
+
+    const voteOnProposal = async (proposalId, isUpvote) => {
+        await kintsugi_backend.voteOnProposal(proposalId, isUpvote); // Voting on proposals using backend canister
+        refreshProposals(); // Refresh the proposals list after voting
+    };
+
+    // Function to refresh groups
+    const refreshGroups = async () => {
+        const updatedGroups = await kintsugi_backend.getGroups();
+        setGroups(updatedGroups);
+    };
+
+    // Function to refresh proposals
+    const refreshProposals = async () => {
+        const fetchedProposals = await kintsugi_backend.getProposals(); // Assuming getProposals is a backend function
+        setProposals(fetchedProposals);
     };
 
     return (
@@ -99,7 +127,6 @@ const GroupManager = ({ createGroup, joinGroup, submitProposal, proposals, voteO
         </div>
         <Footer />
         </>
-     
     );
 };
 

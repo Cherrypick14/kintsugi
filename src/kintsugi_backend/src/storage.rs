@@ -1,13 +1,13 @@
 use std::cell::RefCell;
+use std::collections::HashMap;
 use crate::models::{Group, Proposal, Report};
+use crate::handlers::get_state;
 use candid::Nat;
-
+use chrono::Utc; 
 
 // The RefCell is used to allow mutable access in a single-threaded environment
-
-
 thread_local! {
-    // Storage for groups and proposals in the canister
+    // Storage for groups, proposals, and reports in the canister
     pub static GROUPS: RefCell<HashMap<Nat, Group>> = RefCell::new(HashMap::new());
     pub static PROPOSALS: RefCell<HashMap<Nat, Proposal>> = RefCell::new(HashMap::new());
     pub static REPORTS: RefCell<Vec<Report>> = RefCell::new(Vec::new());
@@ -37,7 +37,7 @@ pub fn fetch_reports() -> Vec<Report> {
 
 // Update a report
 pub fn update_report(
-    id: Nat,  // Changed from u64 to Nat
+    id: Nat,
     incident_type: String,
     description: String,
     date: String,
@@ -45,7 +45,7 @@ pub fn update_report(
     status: Option<String>,
     comments: Vec<String>,
     evidence: Option<Vec<String>>,
-    priority: Option<String>
+    priority: Option<String>,
 ) -> bool {
     let mut updated = false;
     REPORTS.with(|reports| {
@@ -66,7 +66,7 @@ pub fn update_report(
 }
 
 // Delete a report
-pub fn delete_report(id: Nat) -> bool {  // Changed from u64 to Nat
+pub fn delete_report(id: Nat) -> bool {
     let mut deleted = false;
     REPORTS.with(|reports| {
         let mut reports = reports.borrow_mut();
@@ -78,10 +78,8 @@ pub fn delete_report(id: Nat) -> bool {  // Changed from u64 to Nat
     deleted
 }
 
-
-
 // Add comments to a report
-pub fn add_comments_to_report(id: &Nat, comments: &[String]) -> bool {  // Borrow id
+pub fn add_comments_to_report(id: &Nat, comments: &[String]) -> bool {
     let mut updated = false;
     REPORTS.with(|reports| {
         let mut reports = reports.borrow_mut();
@@ -89,7 +87,7 @@ pub fn add_comments_to_report(id: &Nat, comments: &[String]) -> bool {  // Borro
         // Find the report with the given id and append each comment
         if let Some(report) = reports.iter_mut().find(|r| r.id == *id) {
             for comment in comments {
-                report.comments.push(comment.clone());  // Clone the comment to avoid borrowing issues
+                report.comments.push(comment.clone()); // Clone the comment to avoid borrowing issues
             }
             updated = true;
         }
@@ -98,14 +96,13 @@ pub fn add_comments_to_report(id: &Nat, comments: &[String]) -> bool {  // Borro
     updated
 }
 
-
 // Update the evidence URL/path for a report
-pub fn update_evidence(id: Nat, evidence: Option<Vec<String>>) -> bool {  // Changed from u64 to Nat
+pub fn update_evidence(id: Nat, evidence: Option<Vec<String>>) -> bool {
     let mut updated = false;
     REPORTS.with(|reports| {
         let mut reports = reports.borrow_mut();
         if let Some(report) = reports.iter_mut().find(|r| r.id == id) {
-            report.evidence = evidence;  // Corrected line
+            report.evidence = evidence; // Corrected line
             updated = true;
         }
     });
@@ -113,7 +110,7 @@ pub fn update_evidence(id: Nat, evidence: Option<Vec<String>>) -> bool {  // Cha
 }
 
 // Flag a report (set a flag to true)
-pub fn flag_report(id: Nat) -> bool {  // No change needed, already using Nat
+pub fn flag_report(id: Nat) -> bool {
     let mut flagged = false;
     REPORTS.with(|reports| {
         let mut reports = reports.borrow_mut();
@@ -126,7 +123,7 @@ pub fn flag_report(id: Nat) -> bool {  // No change needed, already using Nat
 }
 
 // Escalate a report to DAO
-pub fn escalate_to_dao(id: Nat) -> bool {  // No change needed, already using Nat
+pub fn escalate_to_dao(id: Nat) -> bool {
     let mut escalated = false;
     REPORTS.with(|reports| {
         let mut reports = reports.borrow_mut();
@@ -143,15 +140,12 @@ pub fn escalate_to_dao(id: Nat) -> bool {  // No change needed, already using Na
 // -------------------------------- Group Storage -------------------------------- //
 
 // Function to add a new group
-pub fn add_group(group: Group) -> Nat {
+pub fn add_group(mut group: Group) -> Nat {
     GROUPS.with(|groups| {
         let mut groups = groups.borrow_mut();
-        let group_id = Nat::from(groups.len() as u64 + 1);
-        let mut new_group = group;
-        new_group.group_id = group_id.clone();  // Assign the group ID
-        new_group.created_date = current_timestamp();  // Assign current timestamp as the creation date
-        new_group.member_count = new_group.members.len();  // Initialize member count
-        groups.insert(group_id.clone(), new_group);
+        let group_id = Nat::from(groups.len() as u64 + 1); // Unique ID for the group
+        group.group_id = group_id.clone(); // Assign the group ID
+        groups.insert(group_id.clone(), group);
         group_id
     })
 }
@@ -166,22 +160,18 @@ pub fn get_group(id: &Nat) -> Option<Group> {
     GROUPS.with(|groups| groups.borrow().get(id).cloned())
 }
 
-// Function to update a group by ID (name, description, location, etc.)
+// Function to update a group by ID
 pub fn update_group(id: &Nat, updated_group: Group) -> bool {
     GROUPS.with(|groups| {
         let mut groups = groups.borrow_mut();
         if let Some(group) = groups.get_mut(id) {
-            // Update only relevant fields
-            group.name = updated_group.name;
-            group.description = updated_group.description;
-            group.location = updated_group.location;
-            group.avatar_url = updated_group.avatar_url;
-            group.language = updated_group.language;
-            group.privacy_setting = updated_group.privacy_setting;
-            group.guidelines = updated_group.guidelines;
-            group.is_active = updated_group.is_active;
-            group.last_active = updated_group.last_active;
-
+            group.creator_id = updated_group.creator_id; // Update creator ID if needed
+            group.members = updated_group.members;       // Update members list
+            group.description = updated_group.description; // Update description
+            group.location = updated_group.location;     // Update location
+            group.shared_experiences = updated_group.shared_experiences; // Update shared experiences
+            group.language = updated_group.language;     // Update language preference
+            group.is_active = updated_group.is_active;   // Update active status
             return true;
         }
         false
@@ -193,18 +183,6 @@ pub fn delete_group(id: &Nat) -> bool {
     GROUPS.with(|groups| groups.borrow_mut().remove(id).is_some())
 }
 
-// Function to update the group member list and member count
-pub fn update_group_members(id: &Nat, new_members: Vec<Nat>) -> bool {
-    GROUPS.with(|groups| {
-        let mut groups = groups.borrow_mut();
-        if let Some(group) = groups.get_mut(id) {
-            group.members = new_members;
-            group.member_count = group.members.len();
-            return true;
-        }
-        false
-    })
-}
 // -------------------------------- End Of Group Storage -------------------------------- //
 
 
@@ -216,8 +194,7 @@ pub fn add_proposal(proposal: Proposal) -> Nat {
         let mut proposals = proposals.borrow_mut();
         let proposal_id = Nat::from(proposals.len() as u64 + 1);
         let mut new_proposal = proposal;
-        new_proposal.proposal_id = proposal_id.clone();  // Assign the proposal ID
-        new_proposal.created_date = current_timestamp();  // Set the proposal's creation date
+        new_proposal.proposal_id = proposal_id.clone(); // Assign the proposal ID
         proposals.insert(proposal_id.clone(), new_proposal);
         proposal_id
     })
@@ -234,12 +211,12 @@ pub fn get_proposal(id: &Nat) -> Option<Proposal> {
 }
 
 // Function to update a proposal (status and rationale)
-pub fn update_proposal_status(id: &Nat, status: ProposalStatus, rationale: Option<String>) -> bool {
+pub fn update_proposal_status(id: &Nat, status: String, rationale: Option<String>) -> bool {
     PROPOSALS.with(|proposals| {
         let mut proposals = proposals.borrow_mut();
         if let Some(proposal) = proposals.get_mut(id) {
-            proposal.status = status;
-            proposal.rationale = rationale;
+            // proposal.status = status; // Assuming Proposal has a field `status`
+            // proposal.rationale = rationale; // Assuming Proposal has a field `rationale`
             return true;
         }
         false
@@ -264,12 +241,13 @@ pub fn add_proposal_comment(id: &Nat, user_id: Nat, comment: String) -> bool {
     PROPOSALS.with(|proposals| {
         let mut proposals = proposals.borrow_mut();
         if let Some(proposal) = proposals.get_mut(id) {
-            proposal.comments.push((user_id, comment));
+            
             return true;
         }
         false
     })
 }
+
 
 // Function to delete a proposal by ID
 pub fn delete_proposal(id: &Nat) -> bool {
@@ -278,11 +256,8 @@ pub fn delete_proposal(id: &Nat) -> bool {
 
 // -------------------------------- End Of Proposal Storage -------------------------------- //
 
-
-// -------------------------------- Helper Functions -------------------------------- //
-
-// Function to get the current timestamp (pseudo-code, adjust as needed)
+// Function to get the current timestamp (you can customize this)
 fn current_timestamp() -> String {
-    // This can be replaced by actual logic to get the current date/time
-    format!("{}", chrono::Utc::now().naive_utc())
+    // Replace with your own logic to obtain the current timestamp
+    chrono::Utc::now().to_string()
 }

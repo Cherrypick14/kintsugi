@@ -1,77 +1,66 @@
 type Result = variant { Ok : null; Err : text };
 
 type Report = record {
-  id : nat;
-  incident_type : text;
-  description : text;
-  date : text;
-  location : text;
-  status : opt text;
-  comments : vec text; // Vector of comments
-  evidence : opt vec text; // Changed to a vector of optional text for multiple evidence items
-  flagged : bool;
-  escalated_to_dao : bool;
-  priority : text; // String-based priority values like "High", "Medium", "Low"
+    id : nat;                                    // Unique identifier for the report
+    incident_type : text;                        // Type of incident
+    description : text;                          // Description of the incident
+    date : text;                                 // Date of the incident
+    location : text;                             // Location of the incident
+    priority : text;                             // Priority of the report
+    status : opt text;                           // Optional status of the report
+    comments : vec text;                         // Vector of comments
+    evidence : opt vec text;                     // Optional vector of evidence items
+    flagged : bool;                              // Flag indicating if the report is flagged
+    escalated_to_dao : bool;                    // Indicates if the report has been escalated to DAO
 };
 
 type Group = record {
-    group_id : nat; // Changed to group_id for clarity
-    name : text;
-    description : text; 
-    location : text; // Location field added for the group
-    avatar_url : opt text; // Optional avatar URL for the group
-    language : opt text; // Optional language setting
-    privacy_setting : text; // Privacy setting for the group
-    guidelines : opt text; // Optional guidelines for the group
-    created_date : text; // Date when the group was created
-    last_active : text; // Last active date of the group
-    is_active : bool; // Indicates if the group is active
-    member_count : nat; // Number of members in the group
-    members : vec principal; // Vector of member principals
-    events : vec text; // Events associated with the group
+    group_id : nat;                              // Unique ID for the group
+    creator_id : nat;                            // User ID of the group creator
+    members : vec nat;                           // List of user IDs in the group
+    description : text;                          // Purpose or mission of the group
+    location : text;                             // Location of the group
+    shared_experiences : vec text;               // Common experiences shared by members
+    language : text;                             // Preferred language for discussions
+    is_active : bool;                           // Indicates if the group is active
 };
 
 type Proposal = record {
-    proposal_id : nat; // Changed to proposal_id for clarity
-    description : text;
-    votes_for : nat;
-    votes_against : nat;
-    group_id : nat; // Reference to the associated group ID
-    proposer : principal; // Proposer as a principal type
-    created_date : text; // Date when the proposal was created
-    status : ProposalStatus; // Changed to ProposalStatus type
-    rationale : opt text; // Optional rationale for the proposal
+    proposal_id : nat;                           // Unique identifier for the proposal
+    description : text;                          // Description of the proposal
+    votes_for : nat;                             // Votes in favor
+    votes_against : nat;                         // Votes against
+    creator_id : nat;                            // ID of the user who created the proposal
 };
 
 type ProposalStatus = variant {
-    Pending;
-    Approved;
-    Rejected;
+    Pending;                                     // Proposal awaiting votes
+    Approved;                                    // Proposal approved by the group
+    Rejected;                                    // Proposal rejected
 };
 
 service : {
-  create_report : (text, text, text, text, text, opt vec text) -> (nat); // Added priority as text
-  get_report_handler : (nat) -> (opt Report);           
-  fetch_reports_handler : () -> (vec Report);           
-  update_report : (nat, text, text, text, text, opt text, vec text, opt vec text, opt text) -> (Result); // Updated to match function signature
-  delete_report : (nat) -> (Result);                    
-  update_status : (nat, text) -> (Result);              
-  add_comment : (nat, vec text) -> (Result); // Vector of comments
-  update_evidence_handler : (nat, vec text) -> (Result); // Allow multiple pieces of evidence
-  flag_report : (nat) -> (Result);              
-  escalate_to_dao : (nat) -> (Result);   
-  
-  create_group : (text, text, text, text, opt text) -> (nat); // Handler for group creation
-  fetch_groups : () -> (vec Group); // Method to fetch all groups
-  get_group : (nat) -> (opt Group); // Fetch a specific group by ID
-  update_group : (nat, text, text) -> (Result); // Update group details
-  delete_group : (nat) -> (Result); // Delete a specific group
-  
-  submit_proposal : (nat, text) -> (nat); // Submit a proposal to a group
-  fetch_proposals : () -> (vec Proposal); // Method to fetch all proposals
-  get_proposal : (nat) -> (opt Proposal); // Fetch a specific proposal by ID
-  delete_proposal : (nat) -> (Result); // Delete a specific proposal
-  vote_on_proposal : (nat, bool) -> (Result); // Vote on a proposal
-  update_proposal_status_handler : (nat, ProposalStatus, opt text) -> (Result); // Update proposal status
-  add_proposal_comment_handler : (nat, nat, text) -> (Result); // Add comment to a proposal
+    create_report : (text, text, text, text, text, text, opt vec text) -> (nat); // Creates a report and returns its ID
+    get_report_handler : (nat) -> (opt Report);                                // Fetches a report by ID
+    fetch_reports_handler : () -> (vec Report);                                 // Fetches all reports
+    update_report : (nat, text, text, text, text, text, opt text, vec text, opt vec text, opt text) -> (Result); // Updates report details
+    delete_report : (nat) -> (Result);                                          // Deletes a report by ID
+    update_status : (nat, text) -> (Result);                                   // Updates the status of a report
+    add_comment : (nat, vec text) -> (Result);                                 // Adds comments to a report
+    update_evidence_handler : (nat, vec text) -> (Result);                     // Updates evidence for a report
+    flag_report : (nat) -> (Result);                                           // Flags a report
+    escalate_to_dao : (nat) -> (Result);                                       // Escalates a report to DAO
+
+    create_group : (nat, vec nat, text, text, vec text, text, bool) -> (nat);  // Creates a group and returns its ID
+    fetch_groups : () -> (vec Group);                                           // Fetches all groups
+    get_group : (nat) -> (opt Group);                                           // Fetches a specific group by ID
+    update_group : (nat, text, text, vec text, bool) -> (Result);              // Updates group details
+    delete_group : (nat) -> (Result);                                           // Deletes a specific group
+
+    submit_proposal : (nat, text, nat) -> (nat);                               // Submits a proposal to a group
+    fetch_proposals : () -> (vec Proposal);                                     // Fetches all proposals
+    get_proposal : (nat) -> (opt Proposal);                                     // Fetches a specific proposal by ID
+    delete_proposal : (nat) -> (Result);                                        // Deletes a specific proposal
+    vote_on_proposal : (nat, bool) -> (Result);                                 // Votes on a proposal
+    update_proposal_status_handler : (nat, ProposalStatus) -> (Result);        // Updates proposal status
 };

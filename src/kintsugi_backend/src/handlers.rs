@@ -1,4 +1,4 @@
-use crate::models::{Report, Group, Proposal,ProposalStatus};
+use crate::models::{Report, Group, Proposal, ProposalStatus};
 use crate::storage::{
     add_report,
     fetch_reports,
@@ -16,8 +16,11 @@ use crate::storage::{
     add_proposal,
     fetch_proposals,
     get_proposal,
-    update_proposal,
+    // update_proposal,
     delete_proposal,
+    update_proposal_votes,
+    add_proposal_comment,
+    update_proposal_status,
 };
 use ic_cdk_macros::*;
 use candid::Nat;
@@ -35,7 +38,7 @@ fn create_report(
     date: String,
     location: String,
     priority: String,
-    evidence: Option<Vec<String>>
+    evidence: Option<Vec<String>>,
 ) -> Nat {
     let report = Report {
         id: Nat::from(0u64),
@@ -73,7 +76,7 @@ fn update_report(
     status: Option<String>,
     comments: Vec<String>,
     evidence: Option<Vec<String>>,
-    priority: Option<String>
+    priority: Option<String>,
 ) -> Result<(), String> {
     if storage_update_report(id, incident_type, description, date, location, status, comments, evidence, priority) {
         Ok(())
@@ -84,7 +87,7 @@ fn update_report(
 
 #[update]
 fn delete_report(id: Nat) -> Result<(), String> {
-    if storage_delete_report(id) {  // Directly use Nat
+    if storage_delete_report(id) {
         Ok(())
     } else {
         Err("Failed to delete report".into())
@@ -104,30 +107,23 @@ fn update_status(id: Nat, status: String) -> Result<(), String> {
     })
 }
 
-
 #[update]
 fn add_comment(id: Nat, comments: Vec<String>) -> Result<(), String> {
-    // Log input for debugging purposes
     ic_cdk::println!("Attempting to add comments to report with id: {}. Comments: {:?}", id, comments);
-
-    // Try to add the comments to the report
-    let success = add_comments_to_report(&id, &comments);  // Pass borrowed references
+    let success = add_comments_to_report(&id, &comments);
 
     if success {
-        // Log success
         ic_cdk::println!("Successfully added comments to report with id: {}", id);
         Ok(())
     } else {
-        // Log failure
         ic_cdk::println!("Failed to add comments to report with id: {}", id);
         Err(format!("Failed to add comments to report with id: {}", id))
     }
 }
 
-
 #[update]
 fn flag_report(id: Nat) -> Result<(), String> {
-    if storage_flag_report(id) {  // Directly use Nat
+    if storage_flag_report(id) {
         Ok(())
     } else {
         Err("Failed to flag report".into())
@@ -146,15 +142,12 @@ fn escalate_to_dao(id: Nat) -> Result<(), String> {
         }
     })
 }
-// End of Report creation
-
 
 // -------------------------------- Group and Proposal Handlers -------------------------------- //
 
 // In-memory storage for groups and users
-
 pub struct State {
-    pub groups: HashMap<String, Group>,
+    pub groups: HashMap<Nat, Group>, // Changed to use Nat for group_id
     pub proposals_counter: u64, // Counter to track proposal IDs
 }
 
@@ -171,7 +164,7 @@ impl State {
 static mut STATE: Option<State> = None;
 
 // Helper function to access state
-fn get_state() -> &'static mut State {
+pub fn get_state() -> &'static mut State {
     unsafe {
         STATE.get_or_insert_with(State::new)
     }
@@ -181,22 +174,21 @@ fn get_state() -> &'static mut State {
 
 // Handler to create a group
 #[update]
-pub fn create_group(name: String, description: String, location: String, privacy_setting: String, guidelines: Option<String>) -> Result<Nat, String> {
+pub fn create_group(
+    creator_id: Nat, // Added creator_id to associate group with a creator
+    description: String,
+    location: String,
+    language: String,
+) -> Result<Nat, String> {
     let new_group = Group {
-        group_id: Nat::from(0u64),
-        name,
+        group_id: Nat::from(get_state().groups.len() as u64), // Unique group ID based on current size
+        creator_id,
+        members: Vec::new(),
         description,
         location,
-        avatar_url: None,
-        language: None,
-        privacy_setting,
-        guidelines,
-        created_date: current_timestamp(),
-        last_active: current_timestamp(),
+        shared_experiences: Vec::new(),
+        language,
         is_active: true,
-        member_count: 0,
-        members: Vec::new(),
-        events: Vec::new(),
     };
 
     let group_id = add_group(new_group);
@@ -228,18 +220,19 @@ pub fn delete_group_handler(group_id: Nat) -> Result<(), String> {
 // Handler to join a group
 #[update]
 pub fn join_group(group_id: Nat, user_id: Nat) -> Result<(), String> {
-    let group = get_group(&group_id).ok_or_else(|| "Group not found.".to_string())?;
+    let mut group = get_group(&group_id).ok_or_else(|| "Group not found.".to_string())?;
 
     if group.members.contains(&user_id) {
         return Err("User already a member.".to_string());
     }
 
-    let mut new_members = group.members.clone();
-    new_members.push(user_id);
-    if update_group_members(&group_id, new_members) {
+    group.members.push(user_id);
+    
+    // Convert boolean to Result
+    if update_group(&group_id, group) {
         Ok(())
     } else {
-        Err("Failed to add user to group.".to_string())
+        Err("Failed to update group members.".to_string())
     }
 }
 
@@ -247,18 +240,13 @@ pub fn join_group(group_id: Nat, user_id: Nat) -> Result<(), String> {
 
 // Handler to submit a proposal
 #[update]
-pub fn submit_proposal(group_id: Nat, description: String) -> Result<Nat, String> {
+pub fn submit_proposal(group_id: Nat, description: String, creator_id: Nat) -> Result<Nat, String> {
     let proposal = Proposal {
         proposal_id: Nat::from(0u64),
         description,
         votes_for: Nat::from(0u64),
         votes_against: Nat::from(0u64),
-        group_id: group_id.clone(),
-        proposer: candid::Principal::anonymous(),  // This should be the actual user
-        comments: Vec::new(),
-        created_date: current_timestamp(),
-        status: ProposalStatus::Pending,
-        rationale: None,
+        creator_id, 
     };
 
     let proposal_id = add_proposal(proposal);
@@ -293,9 +281,9 @@ pub fn vote_on_proposal(proposal_id: Nat, upvote: bool) -> Result<(), String> {
     let mut proposal = get_proposal(&proposal_id).ok_or_else(|| "Proposal not found.".to_string())?;
 
     if upvote {
-        proposal.votes_for += Nat::from(1);
+        proposal.votes_for += Nat::from(1u64);
     } else {
-        proposal.votes_against += Nat::from(1);
+        proposal.votes_against += Nat::from(1u64); 
     }
 
     if update_proposal_votes(&proposal_id, proposal.votes_for.clone(), proposal.votes_against.clone()) {
@@ -306,14 +294,14 @@ pub fn vote_on_proposal(proposal_id: Nat, upvote: bool) -> Result<(), String> {
 }
 
 // Handler to update proposal status
-#[update]
-pub fn update_proposal_status_handler(proposal_id: Nat, status: ProposalStatus, rationale: Option<String>) -> Result<(), String> {
-    if update_proposal_status(&proposal_id, status, rationale) {
-        Ok(())
-    } else {
-        Err("Failed to update proposal status.".to_string())
-    }
-}
+// #[update]
+// pub fn update_proposal_status_handler(proposal_id: Nat, status: ProposalStatus, rationale: Option<String>) -> Result<(), String> {
+//     if update_proposal_status(&proposal_id, st) {
+//         Ok(())
+//     } else {
+//         Err("Failed to update proposal status.".to_string())
+//     }
+// }
 
 // Handler to add a comment to a proposal
 #[update]
@@ -325,12 +313,9 @@ pub fn add_proposal_comment_handler(proposal_id: Nat, user_id: Nat, comment: Str
     }
 }
 
-// End of Group and Proposals
-
 // -------------------------------- Helper Functions -------------------------------- //
 
 // Helper to get the current timestamp
 fn current_timestamp() -> String {
-    // Replace with actual logic for getting current date/time
     format!("{}", chrono::Utc::now().naive_utc())
 }
