@@ -9,6 +9,16 @@ dotenv.config({ path: '../../.env' });
 export default defineConfig({
   build: {
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          // Split node_modules into chunks by package name
+          if (id.includes('node_modules')) {
+            return id.toString().split('node_modules/')[1].split('/')[0]; // Chunk by package
+          }
+        },
+      },
+    },
   },
   optimizeDeps: {
     esbuildOptions: {
