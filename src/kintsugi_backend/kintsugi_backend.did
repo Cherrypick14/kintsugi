@@ -1,66 +1,45 @@
-type Result = variant { Ok : null; Err : text };
+type Result = variant { 
+    Ok : null;              // Success case
+    Err : text;             // Error message
+};
 
 type Report = record {
-    id : nat;                                    // Unique identifier for the report
-    incident_type : text;                        // Type of incident
-    description : text;                          // Description of the incident
-    date : text;                                 // Date of the incident
-    location : text;                             // Location of the incident
-    priority : text;                             // Priority of the report
-    status : opt text;                           // Optional status of the report
-    comments : vec text;                         // Vector of comments
-    evidence : opt vec text;                     // Optional vector of evidence items
-    flagged : bool;                              // Flag indicating if the report is flagged
-    escalated_to_dao : bool;                    // Indicates if the report has been escalated to DAO
-};
-
-type Group = record {
-    group_id : nat;                              // Unique ID for the group
-    creator_id : nat;                            // User ID of the group creator
-    members : vec nat;                           // List of user IDs in the group
-    description : text;                          // Purpose or mission of the group
-    location : text;                             // Location of the group
-    shared_experiences : vec text;               // Common experiences shared by members
-    language : text;                             // Preferred language for discussions
-    is_active : bool;                           // Indicates if the group is active
-};
-
-type Proposal = record {
-    proposal_id : nat;                           // Unique identifier for the proposal
-    description : text;                          // Description of the proposal
-    votes_for : nat;                             // Votes in favor
-    votes_against : nat;                         // Votes against
-    creator_id : nat;                            // ID of the user who created the proposal
-};
-
-type ProposalStatus = variant {
-    Pending;                                     // Proposal awaiting votes
-    Approved;                                    // Proposal approved by the group
-    Rejected;                                    // Proposal rejected
+    id : nat;               // Unique identifier for the report
+    incident_type : text;   // Type of incident
+    description : text;     // Description of the incident
+    date : text;            // Date of the incident
+    location : text;        // Location of the incident
+    evidence : opt vec text; // Optional evidence for the report
+    priority : opt text;    // Optional priority level of the report
 };
 
 service : {
-    create_report : (text, text, text, text, text, text, opt vec text) -> (nat); // Creates a report and returns its ID
-    get_report_handler : (nat) -> (opt Report);                                // Fetches a report by ID
-    fetch_reports_handler : () -> (vec Report);                                 // Fetches all reports
-    update_report : (nat, text, text, text, text, text, opt text, vec text, opt vec text, opt text) -> (Result); // Updates report details
-    delete_report : (nat) -> (Result);                                          // Deletes a report by ID
-    update_status : (nat, text) -> (Result);                                   // Updates the status of a report
-    add_comment : (nat, vec text) -> (Result);                                 // Adds comments to a report
-    update_evidence_handler : (nat, vec text) -> (Result);                     // Updates evidence for a report
-    flag_report : (nat) -> (Result);                                           // Flags a report
-    escalate_to_dao : (nat) -> (Result);                                       // Escalates a report to DAO
+    create_report : (
+        text,             // Incident type
+        text,             // Description
+        text,             // Date
+        text,             // Location
+        opt vec text,     // Optional evidence
+        opt text          // Optional priority
+    ) -> (nat);           // Creates a report and returns its ID
 
-    create_group : (nat, vec nat, text, text, vec text, text, bool) -> (nat);  // Creates a group and returns its ID
-    fetch_groups : () -> (vec Group);                                           // Fetches all groups
-    get_group : (nat) -> (opt Group);                                           // Fetches a specific group by ID
-    update_group : (nat, text, text, vec text, bool) -> (Result);              // Updates group details
-    delete_group : (nat) -> (Result);                                           // Deletes a specific group
+    get_report_handler : (
+        nat               // Report ID
+    ) -> (opt Report);    // Fetches a report by ID
 
-    submit_proposal : (nat, text, nat) -> (nat);                               // Submits a proposal to a group
-    fetch_proposals : () -> (vec Proposal);                                     // Fetches all proposals
-    get_proposal : (nat) -> (opt Proposal);                                     // Fetches a specific proposal by ID
-    delete_proposal : (nat) -> (Result);                                        // Deletes a specific proposal
-    vote_on_proposal : (nat, bool) -> (Result);                                 // Votes on a proposal
-    update_proposal_status_handler : (nat, ProposalStatus) -> (Result);        // Updates proposal status
+    fetch_reports_handler : () -> (vec Report); // Fetches all reports
+
+    update_report : (
+        nat,              // Report ID
+        text,             // Incident type
+        text,             // Description
+        text,             // Date
+        text,             // Location
+        opt vec text,     // Optional evidence
+        opt text          // Optional priority
+    ) -> (Result);        // Updates report details and returns Result
+
+    delete_report : (
+        nat               // Report ID
+    ) -> (Result);        // Deletes a report and returns Result
 };

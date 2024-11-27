@@ -28,20 +28,22 @@ const Form = () => {
     }),
     onSubmit: async (values, { resetForm }) => {
       try {
-   // Convert evidenceFiles FileList to an array
-   const evidence = evidenceFiles.length ? Array.from(evidenceFiles).map(file => file.name) : null;
+        // Convert evidenceFiles FileList to an array of file names
+        const evidence = evidenceFiles.length
+          ? Array.from(evidenceFiles).map(file => file.name)
+          : null;
 
-      
-        await kintsugi_backend.create_report(
+        // Call the create_report method from the backend
+        const reportId = await kintsugi_backend.create_report(
           values.incident_type,
           values.description,
           values.date,
           values.location,
           values.priority,
-          evidence // Send the evidence with the report (if applicable)
+          evidence
         );
 
-        setMessage('Report submitted successfully!');
+        setMessage(`Report submitted successfully with ID: ${reportId}`);
         setIsSuccess(true);
 
         // Reset form and evidence after successful submission
@@ -69,7 +71,7 @@ const Form = () => {
   });
 
   const handleFileChange = (event) => {
-    setEvidenceFiles(event.target.files); // FileList is fine here, but handle it correctly in onSubmit
+    setEvidenceFiles(event.target.files); // Update evidence files state
   };
 
   return (
@@ -167,7 +169,7 @@ const Form = () => {
                 accept=".jpg,.jpeg,.png,.pdf,.doc,.docx,.mp4,.mp3"
                 multiple
                 onChange={handleFileChange}
-             />
+              />
               <small className="file-format-info">
                 Accepted file formats: .jpg, .jpeg, .png, .pdf, .doc, .docx, .mp4, .mp3.
                 Please upload files that support your report.

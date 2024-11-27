@@ -14,7 +14,7 @@ const Login = () => {
         onSuccess: () => {
           // Perform actions upon successful login
           window.localStorage.setItem('identity', JSON.stringify(authClient.getIdentity()));
-          navigate('/admin');
+          navigate('/form');
         }
       });
     } catch (error) {
