@@ -10,5 +10,4 @@ pub struct Report {
     pub date: String,
     pub location: String,
     pub evidence: Option<Vec<String>>, // Add evidence field
-    pub priority: Option<String>,   // Add priority field
 }

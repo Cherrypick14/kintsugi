@@ -10,7 +10,6 @@ pub fn handle_add_report(
     date: String,
     location: String,
     evidence: Option<Vec<String>>,
-    priority: Option<String>,
 ) -> Nat {
     let report = Report {
         id: Nat::from(0u64), // Use a supported type like u64 // Temporary ID, updated in storage
@@ -19,7 +18,7 @@ pub fn handle_add_report(
         date,
         location,
         evidence,
-        priority,
+        
     };
     add_report(report)
 }
@@ -45,9 +44,9 @@ pub fn handle_update_report(
     date: String,
     location: String,
     evidence: Option<Vec<String>>,
-    priority: Option<String>,
+
 ) -> bool {
-    update_report(id, incident_type, description, date, location, evidence, priority)
+    update_report(id, incident_type, description, date, location, evidence)
 }
 
 // Delete a report

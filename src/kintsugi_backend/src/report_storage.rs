@@ -35,7 +35,7 @@ pub fn update_report(
     date: String,
     location: String,
     evidence: Option<Vec<String>>,
-    priority: Option<String>,
+    
 ) -> bool {
     let mut updated = false;
     REPORTS.with(|reports| {
@@ -46,7 +46,7 @@ pub fn update_report(
             report.date = date;
             report.location = location;
             report.evidence = evidence;
-            report.priority = priority;
+            
             updated = true;
         }
     });

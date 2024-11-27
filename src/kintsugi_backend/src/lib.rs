@@ -17,7 +17,7 @@ fn init() {
         date: "2024-08-14".to_string(),
         location: "Nairobi, Kenya".to_string(),
         evidence: Some(vec!["evidence1.png".to_string()]), // Added evidence
-        priority: Some("Medium".to_string()), // Updated priority with Option<String>
+        
     };
 
     // Add the initial report to storage
